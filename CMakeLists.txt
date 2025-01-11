@@ -11,18 +11,11 @@ add_definitions(-D_FORTIFY_SOURCE=2)
 add_definitions(-D_GLIBCXX_ASSERTIONS)
 
 # Boost
-find_package(Boost REQUIRED COMPONENTS thread)
+find_package(Boost REQUIRED COMPONENTS date_time thread)
 
 #Soci with Sqlite 3
 find_package(SQLite3 REQUIRED)
-
-
-message(STATUS poop: ${SQLite3_LIBRARIES})
-
-
-# set(RSTUDIO_TOOLS_SOCI "${RSTUDIO_TOOLS_ROOT}/soci-4.0.3")
-# set(Soci_DIR "${RSTUDIO_TOOLS_SOCI}/build/src/core")
-# find_package(Soci REQUIRED)
+find_package(SOCI REQUIRED)
 
 # Project
 include_directories(SYSTEM 
@@ -37,7 +30,8 @@ add_executable(demo
 # set link dependencies
 target_link_libraries(demo PRIVATE
    Boost::thread
+   Boost::date_time
    SQLite::SQLite3
-#   soci::core
-#   soci::sqlite
+   SOCI::soci_sqlite3
+   SOCI::soci_postgresql
 )
