@@ -1,0 +1,17 @@
+{
+    "runArgs": ["--name", "devenvcpp-jammyarm64-devcontainer"],
+    "build": { "dockerfile": "Dockerfile" },
+  
+    "customizations": {
+      "vscode": {
+        "extensions": [
+            "ms-vscode.cmake-tools", 
+            "ms-vscode.cpptools"
+        ]
+      }
+    },
+
+    "mounts": [
+      "type=volume,src=vol_devenvcpp,dst=/home/developer/volume"
+    ]
+  }
