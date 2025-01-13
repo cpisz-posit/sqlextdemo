@@ -64,7 +64,7 @@ RUN cd /tmp && \
     git checkout release/4.0 && \
     mkdir build && \
     cd build && \
-    cmake -G "Unix Makefiles" -DWITH_BOOST=ON -DWITH_SQLITE3=ON -DSOCI_SQLITE3=ON -DWITH_POSTGRESQL=ON -DSOCI_POSTGRESQL=ON .. && \
+    cmake -G "Unix Makefiles" -DWITH_BOOST=ON -DWITH_SQLITE3=ON -DSOCI_SQLITE3=ON -DWITH_POSTGRESQL=ON -DSOCI_POSTGRESQL=ON -DSOCI_CX11=ON .. && \
     make && \
     make install
 

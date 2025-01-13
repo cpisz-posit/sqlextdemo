@@ -1,6 +1,7 @@
 
 #include <boost/thread.hpp>
 #include <sqlite3.h>
+#include <soci/soci.h>
 
 #include <iostream>
 
