@@ -14,6 +14,8 @@ add_definitions(-D_GLIBCXX_ASSERTIONS)
 find_package(Boost REQUIRED COMPONENTS date_time thread)
 
 #Soci with Sqlite 3
+option(SOCI_CXX11 "" ON)
+
 find_package(SQLite3 REQUIRED)
 find_package(SOCI REQUIRED)
 
@@ -32,6 +34,7 @@ target_link_libraries(demo PRIVATE
    Boost::thread
    Boost::date_time
    SQLite::SQLite3
+   SOCI::soci_core
    SOCI::soci_sqlite3
    SOCI::soci_postgresql
 )

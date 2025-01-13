@@ -55,7 +55,7 @@ RUN cd /tmp && \
     tar -xvf boost_1_83_0.tar.gz && \
     cd boost_1_83_0 && \
     ./bootstrap.sh && \
-    ./b2 install
+    ./b2 variant=release cxxflags="-fPIC -std=c++11" install
 
 # Soci    
 RUN cd /tmp && \
@@ -64,7 +64,21 @@ RUN cd /tmp && \
     git checkout release/4.0 && \
     mkdir build && \
     cd build && \
-    cmake -G "Unix Makefiles" -DWITH_BOOST=ON -DWITH_SQLITE3=ON -DSOCI_SQLITE3=ON -DWITH_POSTGRESQL=ON -DSOCI_POSTGRESQL=ON -DSOCI_CX11=ON .. && \
+    cmake -G "Unix Makefiles" \
+        -DCMAKE_POSITION_INDEPENDENT_CODE:BOOL=true         \
+        -DCMAKE_CXX_VISIBILITY_PRESET="$COMPILE_VISIBILITY" \
+        -DSOCI_TESTS=ON                                     \
+        -DSOCI_CXX11=ON                                     \
+        -DSOCI_EMPTY=OFF                                    \
+        -DBoost_USE_STATIC_LIBS=ON                          \
+        -DWITH_BOOST=ON                                     \
+        -DWITH_POSTGRESQL=ON                                \
+        -DWITH_SQLITE3=ON                                   \
+        -DWITH_DB2=OFF                                      \
+        -DWITH_MYSQL=OFF                                    \
+        -DWITH_ORACLE=OFF                                   \
+        -DWITH_FIREBIRD=OFF                                 \
+        -DWITH_ODBC=OFF ..                               && \
     make && \
     make install
 

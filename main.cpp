@@ -21,5 +21,16 @@ int main()
 
     sqlite3_close(database);
 
+    try
+    {
+        soci::session sql("sqlite3", "file:testdb.db");
+    }
+    catch(const soci::soci_error & e)
+    {
+        std::cerr << e.what() << '\n';
+    }
+
+    
+
     return 0;
 }
