@@ -10,6 +10,9 @@ add_definitions(-DBOOST_ASIO_DISABLE_KQUEUE)
 add_definitions(-D_FORTIFY_SOURCE=2)
 add_definitions(-D_GLIBCXX_ASSERTIONS)
 
+# Define for use of a sqlite extension
+add_definitions(-DSQLITE_CORE)
+
 # Boost
 find_package(Boost REQUIRED COMPONENTS date_time thread)
 
@@ -27,6 +30,7 @@ include_directories(SYSTEM
 
 add_executable(demo
    main.cpp
+   uuidext.cpp
 )
 
 # set link dependencies

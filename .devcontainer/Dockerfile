@@ -45,6 +45,7 @@ RUN apt update && apt -y --no-install-recommends install \
     wget \
     python3 \
     python3-pip \
+    sqlite3 \
     libsqlite3-dev \
     postgresql \
     libpq-dev
