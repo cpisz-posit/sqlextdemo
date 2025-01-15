@@ -46,9 +46,7 @@ RUN apt update && apt -y --no-install-recommends install \
     python3 \
     python3-pip \
     sqlite3 \
-    libsqlite3-dev \
-    postgresql \
-    libpq-dev
+    libsqlite3-dev
 
 # Boost 1.83.0
 RUN cd /tmp && \
@@ -83,8 +81,19 @@ RUN cd /tmp && \
     make && \
     make install
 
+# Google Test
+RUN cd /tmp && \
+    git clone https://github.com/google/googletest.git && \
+    cd googletest && \
+    git checkout v1.15.2 && \
+    mkdir build && \
+    cd build && \
+    cmake .. && \
+    make && \
+    make install
+
 # Package manager for C++ is what everyone needs in thier life
-# Note - We could of gotten boost and soci with conan via a conan file in our actual project, which is much preferred
+# Note - We could of gotten boost, soci, and google test all within the project using conan, which is much preferred, but conan is not officially in use here
 RUN pip install conan
 
 # Create a non-root user and give them sudo

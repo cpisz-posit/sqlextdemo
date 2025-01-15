@@ -9,36 +9,9 @@ add_definitions(-Wall -pthread -Werror=return-type -Wformat -Wformat-security -f
 add_definitions(-DBOOST_ASIO_DISABLE_KQUEUE)
 add_definitions(-D_FORTIFY_SOURCE=2)
 add_definitions(-D_GLIBCXX_ASSERTIONS)
-
-# Define for use of a sqlite extension
 add_definitions(-DSQLITE_CORE)
 
-# Boost
-find_package(Boost REQUIRED COMPONENTS date_time thread)
-
-#Soci with Sqlite 3
-option(SOCI_CXX11 "" ON)
-
-find_package(SQLite3 REQUIRED)
-find_package(SOCI REQUIRED)
-
-# Project
-include_directories(SYSTEM 
-   ${Boost_INCLUDE_DIRS}
-   ${SQLite3_INCLUDE_DIRS}
-)
-
-add_executable(demo
-   main.cpp
-   uuidext.cpp
-)
-
-# set link dependencies
-target_link_libraries(demo PRIVATE
-   Boost::thread
-   Boost::date_time
-   SQLite::SQLite3
-   SOCI::soci_core
-   SOCI::soci_sqlite3
-   SOCI::soci_postgresql
-)
+# targets
+add_subdirectory(sqlite_extensions)
+add_subdirectory(app)
+add_subdirectory(tests)

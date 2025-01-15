@@ -1,11 +1,11 @@
 
-#include "uuidext.hpp"
+#include "sqlite_extensions/uuidext.hpp"
 
-#include <boost/thread.hpp>
 #include <sqlite3.h>
 #include <soci/soci.h>
 
 #include <iostream>
+#include <filesystem>
 
 
 /*
@@ -89,6 +89,12 @@ void create_table(soci::session & session)
 
 void testsoci_w_sqlite_ext()
 {
+    // Delete database if it exists
+    if( std::filesystem::exists("testdb.db") )
+    {
+        std::filesystem::remove("testdb.db");
+    }
+
     // Make a table of existing data
     try
     {
@@ -120,41 +126,8 @@ void testsoci_w_sqlite_ext()
     std::cout << "SQLite extension used to alter table successfully" << std::endl;
 }
 
-void testpostgres()
-{
-    // Make a table of existing data
-    try
-    {
-        soci::session session("postgresql", "dbname=testdb");
-        create_table(session);
-    }
-    catch(const soci::soci_error & e)
-    {
-        std::cerr << e.what() << '\n';
-        return;
-    }
-
-    std::cout << "Postgres DB created with table and a few rows of sample data" << std::endl;
-}
-
 int main()
 {
-    // Did boost link ok?
-    boost::thread thread;
-
-    // Did sqlite3 link ok?
-    sqlite3 *database = nullptr;
-    int result = sqlite3_open("file:testdb.db", &database);
-    
-    if(result)
-    {
-        std::cerr << "Could not open sqlite db" << sqlite3_errmsg(database) << std::endl;
-        sqlite3_close(database);
-        return 1;
-    }
-
-    sqlite3_close(database);
-
     // Register extention
     //
     // Sqlite does something very odd where they require you to make an extension registration function that returns an int and takes three params,
@@ -165,9 +138,6 @@ int main()
 
     // Test soci using sqlite
     testsoci_w_sqlite_ext();
-
-    // Test postgres
-    //testpostgres();
 
     return 0;
 }

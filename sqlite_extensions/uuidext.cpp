@@ -58,7 +58,7 @@
 ** If the X input string has too few or too many digits or contains
 ** stray characters other than {, }, or -, then NULL is returned.
 */
-#include "uuidext.hpp"
+#include "sqlite_extensions/uuidext.hpp"
 
 #include <cassert>
 #include <cstring>
