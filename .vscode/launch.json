@@ -23,6 +23,26 @@
                 "ignoreFailures": true
             }
           ]
+      },
+      {
+        "name": "(gdb) tests",
+        "request": "launch",
+        "type": "cppdbg",
+        "program": "/workspaces/sqlextdemo/build/tests/sqlite_extensions_tests",
+        "cwd": "/workspaces/sqlextdemo/build/tests",
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            },
+            {
+                "description": "Set Disassembly Flavor to Intel",
+                "text": "-gdb-set disassembly-flavor intel",
+                "ignoreFailures": true
+            }
+          ]
       }
     ]
 }
