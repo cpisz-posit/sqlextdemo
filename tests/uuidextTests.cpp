@@ -82,7 +82,8 @@ TEST_CASE("The UUID SQlite extension creates UUIDs from SQL", "[uuidext]")
                 // clock_seq_hi_and_reserved 1 byte
                 //
                 // Version is the most significant 4 bits of time_hi_and_version, and should be equal to 4
-                // Variant is the most significant 2 bits of clock_seq_hi_and_reserved, and should be equal to 2
+                // Variant is the most significant 3 bits of clock_seq_hi_and_reserved, and should be equal to 10x for variant 1,
+                //    where the number of bits that are on is the variant and x can be anything.
                 REQUIRE(guidAsText[14] == '4');
 
                 std::string eighthOctetAsHex = guidAsText.substr(19,2);
