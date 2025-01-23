@@ -9,8 +9,6 @@ find_package(SQLite3 REQUIRED)
 find_package(SOCI REQUIRED)
 find_package(GTest REQUIRED)
 
-message(STATUS "Poop is: ${SQLite3_LIBRARIES}")
-
 # target
 add_executable(sqlite_extensions_tests
    uuidextTests.cpp
